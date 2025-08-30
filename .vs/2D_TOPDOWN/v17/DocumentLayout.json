@@ -1,0 +1,128 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\GameRepos\\2DMapGenerator\\2d_topdown\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{271EBD1F-8B58-41B4-8EFF-316C8EAE3B3F}|2D_TopDown.csproj|d:\\gamerepos\\2dmapgenerator\\2d_topdown\\dungeon\\pathmaker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{271EBD1F-8B58-41B4-8EFF-316C8EAE3B3F}|2D_TopDown.csproj|solutionrelative:dungeon\\pathmaker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{271EBD1F-8B58-41B4-8EFF-316C8EAE3B3F}|2D_TopDown.csproj|d:\\gamerepos\\2dmapgenerator\\2d_topdown\\dungeon\\dungeon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{271EBD1F-8B58-41B4-8EFF-316C8EAE3B3F}|2D_TopDown.csproj|solutionrelative:dungeon\\dungeon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{271EBD1F-8B58-41B4-8EFF-316C8EAE3B3F}|2D_TopDown.csproj|d:\\gamerepos\\2dmapgenerator\\2d_topdown\\2d_topdown.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{271EBD1F-8B58-41B4-8EFF-316C8EAE3B3F}|2D_TopDown.csproj|solutionrelative:2d_topdown.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{271EBD1F-8B58-41B4-8EFF-316C8EAE3B3F}|2D_TopDown.csproj|d:\\gamerepos\\2dmapgenerator\\2d_topdown\\dungeon\\dungeonvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{271EBD1F-8B58-41B4-8EFF-316C8EAE3B3F}|2D_TopDown.csproj|solutionrelative:dungeon\\dungeonvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{271EBD1F-8B58-41B4-8EFF-316C8EAE3B3F}|2D_TopDown.csproj|d:\\gamerepos\\2dmapgenerator\\2d_topdown\\utilities\\constants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{271EBD1F-8B58-41B4-8EFF-316C8EAE3B3F}|2D_TopDown.csproj|solutionrelative:utilities\\constants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{271EBD1F-8B58-41B4-8EFF-316C8EAE3B3F}|2D_TopDown.csproj|d:\\gamerepos\\2dmapgenerator\\2d_topdown\\utilities\\logger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{271EBD1F-8B58-41B4-8EFF-316C8EAE3B3F}|2D_TopDown.csproj|solutionrelative:utilities\\logger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 131,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Dungeon.cs",
+              "DocumentMoniker": "D:\\GAMEREPOS\\2DMAPGENERATOR\\2D_TOPDOWN\\Dungeon\\Dungeon.cs",
+              "RelativeDocumentMoniker": "Dungeon\\Dungeon.cs",
+              "ToolTip": "D:\\GAMEREPOS\\2DMAPGENERATOR\\2D_TOPDOWN\\Dungeon\\Dungeon.cs",
+              "RelativeToolTip": "Dungeon\\Dungeon.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-28T00:44:30.479Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PathMaker.cs",
+              "DocumentMoniker": "D:\\GAMEREPOS\\2DMAPGENERATOR\\2D_TOPDOWN\\Dungeon\\PathMaker.cs",
+              "RelativeDocumentMoniker": "Dungeon\\PathMaker.cs",
+              "ToolTip": "D:\\GAMEREPOS\\2DMAPGENERATOR\\2D_TOPDOWN\\Dungeon\\PathMaker.cs",
+              "RelativeToolTip": "Dungeon\\PathMaker.cs",
+              "ViewState": "AQIAADQAAAAAAAAAAAAswEQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-28T22:40:11.491Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 83,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "2D_TopDown",
+              "DocumentMoniker": "D:\\GAMEREPOS\\2DMAPGENERATOR\\2D_TOPDOWN\\2D_TopDown.csproj",
+              "RelativeDocumentMoniker": "2D_TopDown.csproj",
+              "ToolTip": "D:\\GAMEREPOS\\2DMAPGENERATOR\\2D_TOPDOWN\\2D_TopDown.csproj",
+              "RelativeToolTip": "2D_TopDown.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-08-29T02:37:40.568Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Constants.cs",
+              "DocumentMoniker": "D:\\GAMEREPOS\\2DMAPGENERATOR\\2D_TOPDOWN\\Utilities\\Constants.cs",
+              "RelativeDocumentMoniker": "Utilities\\Constants.cs",
+              "ToolTip": "D:\\GAMEREPOS\\2DMAPGENERATOR\\2D_TOPDOWN\\Utilities\\Constants.cs",
+              "RelativeToolTip": "Utilities\\Constants.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-28T23:08:08.859Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DungeonValidator.cs",
+              "DocumentMoniker": "D:\\GAMEREPOS\\2DMAPGENERATOR\\2D_TOPDOWN\\Dungeon\\DungeonValidator.cs",
+              "RelativeDocumentMoniker": "Dungeon\\DungeonValidator.cs",
+              "ToolTip": "D:\\GAMEREPOS\\2DMAPGENERATOR\\2D_TOPDOWN\\Dungeon\\DungeonValidator.cs",
+              "RelativeToolTip": "Dungeon\\DungeonValidator.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-28T23:04:47.163Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Logger.cs",
+              "DocumentMoniker": "D:\\GAMEREPOS\\2DMAPGENERATOR\\2D_TOPDOWN\\Utilities\\Logger.cs",
+              "RelativeDocumentMoniker": "Utilities\\Logger.cs",
+              "ToolTip": "D:\\GAMEREPOS\\2DMAPGENERATOR\\2D_TOPDOWN\\Utilities\\Logger.cs",
+              "RelativeToolTip": "Utilities\\Logger.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAD4vzoAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-28T00:49:26.116Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
