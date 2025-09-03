@@ -10,30 +10,23 @@ namespace D_TopDown.Dungeon
 {
     public static class DungeonValidator
     {
-        public static bool ValidateStart(Vector2I start, Vector2I dimmensions)
+        public static bool IsInBounds(this Vector2I location, Vector2I dimmensions)
         {
-            return IsInLowerLimit(start) && IsInUpperLimit(start, dimmensions);
+            return location.IsInLowerLimit() && IsInUpperLimit(location, dimmensions);
         }
 
-        public static bool ValidateRoomPlacement(Vector2I location, Vector2I dimmensions, Room[,] map)
-        {
-            bool isValid = IsInLowerLimit(location) && IsInUpperLimit(location, dimmensions);
-            if(isValid) isValid = IsNotOccupied(location, map);
-            return isValid;
-        }
-
-        private static bool IsInUpperLimit(Vector2I location, Vector2I dimmensions)
+        public static bool IsInUpperLimit(this Vector2I location, Vector2I dimmensions)
         {
             return location.X < dimmensions.X
                 && location.Y < dimmensions.Y;
         }
 
-        private static bool IsInLowerLimit(Vector2I location)
+        public static bool IsInLowerLimit(this Vector2I location)
         {
             return location.X >= Constants.ArrayMin
                 && location.Y >= Constants.ArrayMin;
         }
 
-        private static bool IsNotOccupied(Vector2I location, Room[,] map) => map[location.X, location.Y] == Room.Empty;
+        public static bool IsRoom(this Room[,] map, Vector2I location, Room room) => map[location.X, location.Y] == room;
     }
 }
