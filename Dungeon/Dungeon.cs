@@ -27,7 +27,7 @@ public partial class Dungeon : Node
 
 	public override void _Ready()
 	{
-		PathMaker pathMaker = new PathMaker(Dimensions);
+		PathMaker pathMaker = new PathMaker(Dimensions, 2);
 		Map = pathMaker.CreateDungeonMap(CriticalPathLength);
 		Logger.PrintDungeon(Map);
 	}
