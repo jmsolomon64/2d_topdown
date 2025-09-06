@@ -12,9 +12,11 @@ namespace D_TopDown.Dungeon
     public class PathMaker
     {
         private Vector2I Start { get; set; }
-        private Vector2I CurrentDirection { get; set; }
         private Vector2I Dimensions { get; set; }
         private Room[,] Map { get; set; }
+        private List<Vector2I> BranchCandidates { get; set; }
+        private int BranchCount { get; set; }
+        private int BranchLength { get; set; }
         private static int PathLengthChangeIncrement = 1;
         private static int PathLengthEnd = 0;
         private static int MaxDimensionSize = 10;
@@ -28,24 +30,75 @@ namespace D_TopDown.Dungeon
             Vector2I.Right
         };
 
-        public PathMaker(Vector2I dimensions)
+        public PathMaker(Vector2I dimensions, int branchCount)
         {
             Logger.StartMethod();
             Dimensions = dimensions;
             AttemptNumber = 0;
+            BranchCount = branchCount;
+            BranchCandidates = new List<Vector2I>();
             Logger.EndMethod();
         }
 
+        /// <summary>
+        /// Initializes, populates, and returns a multi dimensional array representing a dungeon map
+        /// </summary>
+        /// <param name="pathLength">How long the critical path length should be</param>
+        /// <returns></returns>
         public Room[,] CreateDungeonMap(int pathLength)
         {
             InitializeDungeonMap();
             CreateStartingRoom();
             bool criticalPathGenerated = false;
-            while(!criticalPathGenerated)
+            while (!criticalPathGenerated)
                 criticalPathGenerated = GeneratePath(pathLength, Start, Room.CriticalPath);
+
+            int successfulBranchAttempts = 0;
+            BranchLength = pathLength / BranchCount;
+            foreach (Vector2I candidate in BranchCandidates)
+            {
+                Logger.PrintVariable(AttemptNumber);
+                Logger.PrintVariable(successfulBranchAttempts);
+                if (successfulBranchAttempts == BranchCount)
+                    break;
+
+                if (GeneratePath(BranchLength, candidate, Room.BranchPath))
+                    successfulBranchAttempts++;
+            }
             return Map;
         }
 
+
+        #region Private Methods
+
+        private bool GeneratePath(int pathLength, Vector2I location, Room roomType)
+        {
+            Logger.PrintVariable(AttemptNumber);
+            AttemptNumber++;
+            if (pathLength == PathLengthEnd)
+                return true;
+
+            Vector2I direction = GetRandomDirection();
+            for (int i = Constants.ArrayMin; i < Directions.Length; i++)
+            {
+                location += direction;
+                bool isValid = location.IsInBounds(Dimensions);
+                if (isValid)
+                {
+                    Room previous = Map[location.X, location.Y];
+                    isValid = CreateRoom(location, pathLength, roomType);
+
+                    if (isValid)
+                        return true;
+                    else
+                        location = RevertRoom(location, direction, previous, roomType);
+                }
+                //Will spin to check all options
+                direction = new Vector2I(direction.Y, -direction.X);
+            }
+
+            return false;
+        }
 
         private void InitializeDungeonMap()
         {
@@ -66,55 +119,41 @@ namespace D_TopDown.Dungeon
             if (Start == Vector2I.Zero) Start = GetRandomVector2I(Dimensions);
             else
             {
-                if (!DungeonValidator.ValidateStart(Start, Dimensions))
+                if (!Start.IsInBounds(Dimensions))
                     throw new Exception("Starting room is out of bounds");
             }
             Start = Vector2I.Zero;
             Map[Start.X, Start.Y] = Room.Start;
         }
 
-        public bool GeneratePath(int pathLength, Vector2I location, Room roomType)
+        private bool CreateRoom(Vector2I location, int pathLength, Room room)
         {
-            Logger.PrintVariable(AttemptNumber);
-            AttemptNumber++;
-            if (pathLength == PathLengthEnd)
-                return true;
-
-            CurrentDirection = GetRandomDirection();
-            for (int i = Constants.ArrayMin; i < Directions.Length; i++)
+            if (Map.IsRoom(location, Room.Empty))
             {
-                location += CurrentDirection;
-                if (DungeonValidator.ValidateRoomPlacement(location, Dimensions, Map))
-                {
-                    try
-                    {
-                        Vector2I validateLocation = location;
-                        Logger.PrintVariable(validateLocation);
-                        Room previous = Map[location.X, location.Y];
-                        Map[location.X, location.Y] = roomType;
+                if(room == Room.CriticalPath)
+                    BranchCandidates.Add(location);
 
-                        if (GeneratePath(pathLength - PathLengthChangeIncrement, location, roomType))
-                            return true;
-                        else
-                        {
-                            Map[validateLocation.X, validateLocation.Y] = previous;
-                            location -= CurrentDirection;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.FailedMethod();
-                        Logger.PrintEx(ex);
-                    }
-                }
-                //Will spin to check all options
-                CurrentDirection = new Vector2I(CurrentDirection.Y, -CurrentDirection.X);
+                Map[location.X, location.Y] = room;
+
+                if (GeneratePath(pathLength - PathLengthChangeIncrement, location, room))
+                    return true;
             }
-
             return false;
         }
+        
+        private Vector2I RevertRoom(Vector2I location, Vector2I direction, Room previous, Room attemptedRoom)
+        {
+            if (attemptedRoom == Room.CriticalPath)
+                BranchCandidates.Remove(location);
 
-        public static Vector2I GetRandomVector2I(Vector2I dimmensions)
+            Map[location.X, location.Y] = previous;
+            return location -= direction;
+        }
+        #endregion
+
+
+        #region Private Static Methods
+        private static Vector2I GetRandomVector2I(Vector2I dimmensions)
         {
             Random random = new Random();
             int x = random.Next(Constants.ArrayMin, dimmensions.X);
@@ -122,10 +161,11 @@ namespace D_TopDown.Dungeon
             return new Vector2I(x, y);
         }
 
-        public static Vector2I GetRandomDirection()
+        private static Vector2I GetRandomDirection()
         {
             Random random = new Random();
             return Directions[random.Next(Constants.ArrayMin, Directions.Length - Constants.ArrayPadding)];
         }
+        #endregion
     }
 }
