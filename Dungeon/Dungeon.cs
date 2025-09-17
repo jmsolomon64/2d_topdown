@@ -29,7 +29,7 @@ public partial class Dungeon : Node
 	{
 		PathMaker pathMaker = new PathMaker(Dimensions, CriticalPathLength/2);
 		Map = pathMaker.CreateDungeonMap(CriticalPathLength);
-		Logger.PrintDungeon(Map);
+		D_TopDown.Utilities.Logger.PrintDungeon(Map);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
