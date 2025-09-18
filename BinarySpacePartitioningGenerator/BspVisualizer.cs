@@ -21,8 +21,7 @@ public partial class BspVisualizer : Node2D
 		DrawQueue = new List<List<Rect2>>();
 		AlreadyDrawn = new Dictionary<Rect2, Color>();
 		Time.Timeout += OnTimeOut;
-		Generator.NewSplit += OnNewSplit;
-		//Generator = GetChild<BspGenerator>(0, false); 
+		BspEventHandler.NewSplit += OnNewSplit;
 		Info = Generator.GenerateRooms(new Vector2(960, 540));
 	}
 

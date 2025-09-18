@@ -7,17 +7,16 @@ public partial class BspGenerator : Node
 {
 	[Export]
 	public Vector2I MinRoomSize { get; set; }
-	public Action<List<Rect2>> NewSplit;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 	}
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-    {
-    }
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	}
 
 
 	public BspDungeonInfo GenerateRooms(Vector2 size)
@@ -35,16 +34,13 @@ public partial class BspGenerator : Node
 			areaQueue.RemoveAt(0);
 
 			List<Rect2> splitAreas = Split(currentArea.Dimensions);
-			D_TopDown.Utilities.Logger.PrintVariable(splitAreas);
 			foreach (Rect2 subArea in splitAreas)
 			{
 				BspRoomNode subNode = new BspRoomNode(subArea);
 				currentArea.Subdivisions.Add(subNode);
 				areaQueue.Add(subNode);
 			}
-			GD.Print("Invoking event");
-			NewSplit.Invoke(splitAreas);
-			//EmitSignal(nameof(NewSplitMadeEventHandler), currentArea);
+			BspEventHandler.InvokeNewSplit(splitAreas);
 		}
 
 		return info;
@@ -76,6 +72,4 @@ public partial class BspGenerator : Node
 
 		return rects;
 	}
-
-	
 }

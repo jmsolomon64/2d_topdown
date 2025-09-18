@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bt5nwk4lcyc71"]
+
+[ext_resource type="Script" uid="uid://dujm8id60piim" path="res://BinarySpacePartitioningGenerator/BspVisualizer.cs" id="1_g3b61"]
+[ext_resource type="Script" uid="uid://bqneiwakc0rip" path="res://BinarySpacePartitioningGenerator/BspGenerator.cs" id="2_efm2h"]
+
+[node name="DungeonGenerator" type="Node2D" node_paths=PackedStringArray("Generator", "Time")]
+script = ExtResource("1_g3b61")
+Generator = NodePath("BSPGenerator")
+Time = NodePath("Timer")
+
+[node name="BSPGenerator" type="Node" parent="."]
+script = ExtResource("2_efm2h")
+MinRoomSize = Vector2i(10, 10)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
