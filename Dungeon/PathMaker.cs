@@ -32,12 +32,12 @@ namespace D_TopDown.Dungeon
 
         public PathMaker(Vector2I dimensions, int branchCount)
         {
-            Logger.StartMethod();
+            Utilities.Logger.StartMethod();
             Dimensions = dimensions;
             AttemptNumber = 0;
             BranchCount = branchCount;
             BranchCandidates = new List<Vector2I>();
-            Logger.EndMethod();
+            Utilities.Logger.EndMethod();
         }
 
         /// <summary>
@@ -57,8 +57,8 @@ namespace D_TopDown.Dungeon
             BranchLength = pathLength / BranchCount;
             foreach (Vector2I candidate in BranchCandidates)
             {
-                Logger.PrintVariable(AttemptNumber);
-                Logger.PrintVariable(successfulBranchAttempts);
+                Utilities.Logger.PrintVariable(AttemptNumber);
+                Utilities.Logger.PrintVariable(successfulBranchAttempts);
                 if (successfulBranchAttempts == BranchCount)
                     break;
 
@@ -73,7 +73,7 @@ namespace D_TopDown.Dungeon
 
         private bool GeneratePath(int pathLength, Vector2I location, Room roomType)
         {
-            Logger.PrintVariable(AttemptNumber);
+            Utilities.Logger.PrintVariable(AttemptNumber);
             AttemptNumber++;
             if (pathLength == PathLengthEnd)
                 return true;
@@ -102,7 +102,7 @@ namespace D_TopDown.Dungeon
 
         private void InitializeDungeonMap()
         {
-            Logger.StartMethod();
+            Utilities.Logger.StartMethod();
             Map = new Room[Dimensions.X, Dimensions.Y];
             for (int x = Constants.ArrayMin; x < Dimensions.X; x++)
             {
@@ -111,7 +111,7 @@ namespace D_TopDown.Dungeon
                     Map[x, y] = Room.Empty;
                 }
             }
-            Logger.EndMethod();
+            Utilities.Logger.EndMethod();
         }
 
         private void CreateStartingRoom()
