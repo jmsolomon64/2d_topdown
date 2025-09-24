@@ -24,10 +24,8 @@ public partial class MdaDungeon : Node
 	public RoomType[,] Map { get; set; }
 
 	private bool IsGenerated = false;
+
 	// Called when the node enters the scene tree for the first time.
-
-
-
 	public override void _Ready()
 	{
 		//PathMaker pathMaker = new PathMaker(Dimensions, CriticalPathLength / 2);
@@ -46,8 +44,4 @@ public partial class MdaDungeon : Node
 			Map = pathMaker.CreateDungeonMap(CriticalPathLength); 
 		}
 	}
-
-	
-
-	
 }
