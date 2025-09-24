@@ -1,4 +1,5 @@
 using Godot;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,7 +23,7 @@ namespace D_TopDown.Utilities
         /// Set to 2 because method that invoked logging will be two calls behind GetInvokedMethod()
         /// </summary>
         private static int InvokedMethodIndex = 2;
-        public static void PrintDungeon(Room[,] map)
+        public static void PrintDungeon(RoomType[,] map)
         {
             int cols = map.GetLength(Constants.MultiDimArrayGetLengthCol);
             int rows = map.GetLength(Constants.MultiDimArrayGetLengthRow);
@@ -39,8 +40,11 @@ namespace D_TopDown.Utilities
         }
 
         //forgot the link for this one...
-        public static void PrintVariable(object value, LogLevel level = LogLevel.Info, [CallerArgumentExpression(nameof(value))] string valueVarName = "") =>
-            Out($"{valueVarName}: {value}", level);
+        public static void VarPrint(object value, LogLevel level = LogLevel.Info, [CallerArgumentExpression(nameof(value))] string valueVarName = "")
+        {
+            string json = JsonConvert.SerializeObject(value);
+            Out($"{valueVarName}: {json}", level);
+        }
         public static void StartMethod() => Out($"Starting: {GetInvokedMethodName()}()", LogLevel.Info);
         public static void EndMethod() => Out($"Finished: {GetInvokedMethodName()}()", LogLevel.Info);
         public static void FailedMethod() => Out($"Failed: {GetInvokedMethodName()}", LogLevel.Error);
@@ -70,17 +74,17 @@ namespace D_TopDown.Utilities
             return sf.GetMethod().Name;
         }
 
-        private static string GetShortNameForRoom(Room room)
+        private static string GetShortNameForRoom(RoomType room)
         {
             switch (room)
             {
-                case Room.Empty:
+                case RoomType.Empty:
                     return "E";
-                case Room.Start:
+                case RoomType.Start:
                     return "S";
-                case Room.CriticalPath:
+                case RoomType.CriticalPath:
                     return "C";
-                case Room.BranchPath:
+                case RoomType.BranchPath:
                     return "B";
                 default:
                     throw new Exception("Failed to get name for room");

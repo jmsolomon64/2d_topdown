@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://5u0gqvb2wq4u"]
+
+[ext_resource type="Script" uid="uid://bjum8a6hrxjt8" path="res://MultiDimArrayDungeonGenerator/MdaDungeon.cs" id="1_tqtn5"]
+[ext_resource type="Script" uid="uid://du6uf5ryeqq3f" path="res://MultiDimArrayDungeonGenerator/MdaDungeonVisualizer.cs" id="2_1bfqv"]
+
+[node name="MdaDungeonGenerator" type="Node"]
+script = ExtResource("1_tqtn5")
+Dimensions = Vector2i(10, 10)
+Start = Vector2i(5, 5)
+CriticalPathLength = 15
+
+[node name="DungeonGeneratorVisualizer" type="Node2D" parent="."]
+script = ExtResource("2_1bfqv")
+RoomSize = Vector2(5, 5)
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
