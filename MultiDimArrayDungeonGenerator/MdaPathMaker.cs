@@ -3,7 +3,6 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +12,7 @@ namespace D_TopDown.Dungeon
     {
         private Vector2I Start { get; set; }
         private Vector2I Dimensions { get; set; }
-        private Room[,] Map { get; set; }
+        private RoomType[,] Map { get; set; }
         private List<Vector2I> BranchCandidates { get; set; }
         private int BranchCount { get; set; }
         private int BranchLength { get; set; }
@@ -45,24 +44,23 @@ namespace D_TopDown.Dungeon
         /// </summary>
         /// <param name="pathLength">How long the critical path length should be</param>
         /// <returns></returns>
-        public Room[,] CreateDungeonMap(int pathLength)
+        public RoomType[,] CreateDungeonMap(int pathLength)
         {
             InitializeDungeonMap();
             CreateStartingRoom();
             bool criticalPathGenerated = false;
             while (!criticalPathGenerated)
-                criticalPathGenerated = GeneratePath(pathLength, Start, Room.CriticalPath);
+                criticalPathGenerated = GeneratePath(pathLength, Start, RoomType.CriticalPath);
 
             int successfulBranchAttempts = 0;
-            BranchLength = pathLength / BranchCount;
+            int ogBranchLength = pathLength / BranchCount;
             foreach (Vector2I candidate in BranchCandidates)
             {
-                Utilities.Logger.PrintVariable(AttemptNumber);
-                Utilities.Logger.PrintVariable(successfulBranchAttempts);
+                BranchLength = ogBranchLength;
                 if (successfulBranchAttempts == BranchCount)
                     break;
 
-                if (GeneratePath(BranchLength, candidate, Room.BranchPath))
+                if (GeneratePath(BranchLength, candidate, RoomType.BranchPath))
                     successfulBranchAttempts++;
             }
             return Map;
@@ -71,12 +69,13 @@ namespace D_TopDown.Dungeon
 
         #region Private Methods
 
-        private bool GeneratePath(int pathLength, Vector2I location, Room roomType)
+        private bool GeneratePath(int pathLength, Vector2I location, RoomType roomType)
         {
-            Utilities.Logger.PrintVariable(AttemptNumber);
             AttemptNumber++;
             if (pathLength == PathLengthEnd)
                 return true;
+            else if (pathLength == 0)
+                roomType = RoomType.End;
 
             Vector2I direction = GetRandomDirection();
             for (int i = Constants.ArrayMin; i < Directions.Length; i++)
@@ -85,7 +84,7 @@ namespace D_TopDown.Dungeon
                 bool isValid = location.IsInBounds(Dimensions);
                 if (isValid)
                 {
-                    Room previous = Map[location.X, location.Y];
+                    RoomType previous = Map[location.X, location.Y];
                     isValid = CreateRoom(location, pathLength, roomType);
 
                     if (isValid)
@@ -102,16 +101,15 @@ namespace D_TopDown.Dungeon
 
         private void InitializeDungeonMap()
         {
-            Utilities.Logger.StartMethod();
-            Map = new Room[Dimensions.X, Dimensions.Y];
+            Map = new RoomType[Dimensions.X, Dimensions.Y];
             for (int x = Constants.ArrayMin; x < Dimensions.X; x++)
             {
                 for (int y = Constants.ArrayMin; y < Dimensions.Y; y++)
                 {
-                    Map[x, y] = Room.Empty;
+                    Map[x, y] = RoomType.Empty;
+                    MdaEventHandler.InvokeRoomAdded(new MdaRoom(RoomType.Empty, new Vector2I(x, y)));
                 }
             }
-            Utilities.Logger.EndMethod();
         }
 
         private void CreateStartingRoom()
@@ -122,31 +120,33 @@ namespace D_TopDown.Dungeon
                 if (!Start.IsInBounds(Dimensions))
                     throw new Exception("Starting room is out of bounds");
             }
-            Start = Vector2I.Zero;
-            Map[Start.X, Start.Y] = Room.Start;
+            Map[Start.X, Start.Y] = RoomType.Start;
+            MdaEventHandler.InvokeRoomAdded(new MdaRoom(RoomType.Start, Start));
         }
 
-        private bool CreateRoom(Vector2I location, int pathLength, Room room)
+        private bool CreateRoom(Vector2I location, int pathLength, RoomType room)
         {
-            if (Map.IsRoom(location, Room.Empty))
+            if (Map.IsRoom(location, RoomType.Empty))
             {
-                if(room == Room.CriticalPath)
+                if(room == RoomType.CriticalPath)
                     BranchCandidates.Add(location);
 
                 Map[location.X, location.Y] = room;
-
+                MdaEventHandler.InvokeRoomAdded(new MdaRoom(room, location));
                 if (GeneratePath(pathLength - PathLengthChangeIncrement, location, room))
                     return true;
             }
             return false;
         }
         
-        private Vector2I RevertRoom(Vector2I location, Vector2I direction, Room previous, Room attemptedRoom)
+        private Vector2I RevertRoom(Vector2I location, Vector2I direction, RoomType previous, RoomType attemptedRoom)
         {
-            if (attemptedRoom == Room.CriticalPath)
+            if (attemptedRoom == RoomType.CriticalPath)
                 BranchCandidates.Remove(location);
 
+            RoomType current = Map[location.X, location.Y]; 
             Map[location.X, location.Y] = previous;
+            MdaEventHandler.InvokeRoomRemoved(new MdaRoom(current, location));
             return location -= direction;
         }
         #endregion

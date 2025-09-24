@@ -8,13 +8,17 @@ using System.Threading.Tasks;
 
 namespace D_TopDown.Dungeon
 {
-    public static class DungeonValidator
+    public static class MdaDungeonValidator
     {
         public static bool IsInBounds(this Vector2I location, Vector2I dimmensions)
         {
             return location.IsInLowerLimit() && IsInUpperLimit(location, dimmensions);
         }
-
+        
+        public static bool IsInBounds(this Vector2 location, Vector2 dimmensions)
+        {
+            return location.IsInLowerLimit() && IsInUpperLimit(location, dimmensions);
+        }
         public static bool IsInUpperLimit(this Vector2I location, Vector2I dimmensions)
         {
             return location.X < dimmensions.X
@@ -26,7 +30,18 @@ namespace D_TopDown.Dungeon
             return location.X >= Constants.ArrayMin
                 && location.Y >= Constants.ArrayMin;
         }
+        public static bool IsInUpperLimit(this Vector2 location, Vector2 dimmensions)
+        {
+            return location.X < dimmensions.X
+                && location.Y < dimmensions.Y;
+        }
 
-        public static bool IsRoom(this Room[,] map, Vector2I location, Room room) => map[location.X, location.Y] == room;
+        public static bool IsInLowerLimit(this Vector2 location)
+        {
+            return location.X >= Constants.ArrayMin
+                && location.Y >= Constants.ArrayMin;
+        }
+
+        public static bool IsRoom(this RoomType[,] map, Vector2I location, RoomType room) => map[location.X, location.Y] == room;
     }
 }

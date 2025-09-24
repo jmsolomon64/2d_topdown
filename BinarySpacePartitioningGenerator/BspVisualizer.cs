@@ -10,7 +10,7 @@ public partial class BspVisualizer : Node2D
 	BspGenerator Generator { get; set; }
 	BspDungeonInfo Info { get; set; }
 	[Export]
-	Timer Time { get; set; }
+	Godot.Timer Time { get; set; }
 	List<List<Rect2>> DrawQueue { get; set; }
 	Dictionary<Rect2, Color> AlreadyDrawn { get; set; }
 
