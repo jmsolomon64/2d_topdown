@@ -13,5 +13,5 @@ script = ExtResource("2_efm2h")
 MinRoomSize = Vector2i(10, 10)
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.001
+wait_time = 0.04
 autostart = true

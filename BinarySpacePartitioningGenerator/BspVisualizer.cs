@@ -23,6 +23,7 @@ public partial class BspVisualizer : Node2D
 		Time.Timeout += OnTimeOut;
 		BspEventHandler.NewSplit += OnNewSplit;
 		Info = Generator.GenerateRooms(new Vector2(960, 540));
+		Generator.Test(Info);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

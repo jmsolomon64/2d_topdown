@@ -18,12 +18,27 @@ public partial class BspGenerator : Node
 	{
 	}
 
+	public void Test(BspDungeonInfo dungeon)
+	{
+		D_TopDown.Utilities.Logger.StartMethod();
+		var minNodes = dungeon.AllSubdivisions
+			.Where(x => x.Dimensions.Size.X <= MinRoomSize.X * 2
+					 || x.Dimensions.Size.Y <= MinRoomSize.Y * 2);
+
+		foreach (var minNode in minNodes)
+			D_TopDown.Utilities.Logger.VarPrint(minNode.Dimensions);
+
+		D_TopDown.Utilities.Logger.EndMethod();
+	}
 
 	public BspDungeonInfo GenerateRooms(Vector2 size)
 	{
 		Rect2 startingArea = new Rect2(0, 0, size);
-		BspDungeonInfo info = new BspDungeonInfo();
-		info.Root = new BspRoomNode(startingArea);
+		BspDungeonInfo info = new BspDungeonInfo()
+		{
+			Root = new BspRoomNode(startingArea),
+			MinSize = MinRoomSize
+		};
 
 		List<BspRoomNode> areaQueue = new List<BspRoomNode>() { info.Root };
 
@@ -38,6 +53,7 @@ public partial class BspGenerator : Node
 			{
 				BspRoomNode subNode = new BspRoomNode(subArea);
 				currentArea.Subdivisions.Add(subNode);
+				info.AllSubdivisions.Add(subNode);
 				areaQueue.Add(subNode);
 			}
 			BspEventHandler.InvokeNewSplit(splitAreas);
