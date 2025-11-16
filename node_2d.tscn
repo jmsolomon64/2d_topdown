@@ -12,7 +12,6 @@ Time = NodePath("Timer")
 
 [node name="BSPGenerator" type="Node" parent="DungeonGenerator"]
 script = ExtResource("3_0hol4")
-MinRoomSize = Vector2i(10, 10)
 
 [node name="Timer" type="Timer" parent="DungeonGenerator"]
 wait_time = 0.1
